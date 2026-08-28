@@ -1,0 +1,22 @@
+[workspace]
+members = [
+	"crates/common",
+	"crates/sao",
+	]
+resolver = "3"
+
+
+[workspace.dependencies]
+# Dépendances internes
+common = { path = "crates/common" }
+# Dépendances externes
+clap = { version = "4.6.6", features = ["derive"] }
+serde = { version = "1.0.229", features = ["derive"] }
+toml = "1.1.4"
+whoami = "2.1.3"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+strip = true
