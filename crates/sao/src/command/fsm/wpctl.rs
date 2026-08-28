@@ -9,6 +9,7 @@ pub fn step(context: Context, id: u32) -> Result<Step, Box<dyn std::error::Error
         println!("---- STEP : WPCTL ----")
     }
 
+    if context.v == Verbose { println!("Now modifying default sink") }
     std::process::Command::new("wpctl").arg("set-default").arg(format!("{id}")).output()?;
     if context.v == Verbose { println!("Done !") }
 
