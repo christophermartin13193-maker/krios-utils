@@ -1,7 +1,4 @@
-use crate::command::{
-    arg::Verbosity,
-    output::ErrorType,
-};
+use crate::command::{arg::Verbosity, output::ErrorType};
 use std::fmt::Display;
 
 impl Display for Verbosity {

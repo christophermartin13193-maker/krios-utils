@@ -1,3 +1,4 @@
+#![allow(unused)]
 use std::cmp::PartialEq;
 use std::error::Error;
 
@@ -12,6 +13,7 @@ pub enum ErrorType {
     AbsentCommand,
     NextButNoConfig,
     NoSinks,
+    NamedSinkNotFound,
     PlaceHolder,
 }
 

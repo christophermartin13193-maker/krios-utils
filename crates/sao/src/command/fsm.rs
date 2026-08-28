@@ -9,6 +9,7 @@ use clap::Parser;
 
 mod init;
 mod check;
+mod name;
 mod wpctl;
 
 pub struct Fsm {
@@ -38,7 +39,8 @@ impl Fsm {
         self.step = match current {
             Step::Init(args) => init::step(args)?,
             Step::Check(context) => check::step(context)?,
-            Step::Wpctl(context) => wpctl::step(context)?,
+            Step::Name(context,sinks ) => name::step(context, sinks)?,
+            Step::Wpctl(context, id) => wpctl::step(context, id)?,
             Step::PlaceHolder => return Ok(Output::Exit),
             _ => Step::PlaceHolder,
         };

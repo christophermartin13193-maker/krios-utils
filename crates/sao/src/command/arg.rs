@@ -8,9 +8,9 @@ use std::path::PathBuf;
 group=ArgGroup::new("Sink").args(["next", "name"]),
 )]
 pub struct Args {
-    #[arg(short, long, conflicts_with="quiet")]
+    #[arg(short, long, conflicts_with = "quiet")]
     pub verbose: bool,
-    #[arg(short, long, conflicts_with="verbose")]
+    #[arg(short, long, conflicts_with = "verbose")]
     pub quiet: bool,
 
     #[arg(short, long, required_unless_present = "name")]
