@@ -1,14 +1,14 @@
 #![allow(unused)]
 
 use serde::Deserialize;
-use std::{collections::HashMap, path::PathBuf, str::FromStr};
+use std::{collections::BTreeMap, path::PathBuf, str::FromStr};
 
 use toml;
 use whoami;
 
 #[derive(Deserialize, Debug)]
 pub struct Config {
-    pub sinks: HashMap<String, String>,
+    pub sinks: BTreeMap<String, String>,
 }
 
 pub fn get_config_from_path(path: &PathBuf) -> Result<Config, Box<dyn std::error::Error>> {
@@ -24,7 +24,7 @@ pub fn get_default_config() -> Config {
         (Ok(config), _) => config,
         (_, Ok(config)) => config,
         _ => Config {
-            sinks: HashMap::new(),
+            sinks: BTreeMap::new(),
         },
     }
 }

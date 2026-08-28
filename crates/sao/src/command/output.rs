@@ -14,6 +14,7 @@ pub enum ErrorType {
     NextButNoConfig,
     NoSinks,
     NamedSinkNotFound,
+    NoValidSinkInConfig,
     PlaceHolder,
 }
 

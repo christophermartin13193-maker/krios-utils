@@ -4,14 +4,12 @@ use crate::command::{
     output::ErrorType,
     step::{Context, Step},
 };
-use std::{
-    collections::HashMap,
-};
+use std::collections::BTreeMap;
 
 fn get_id(
     n: &str,
     sinks: &[String],
-    config_sinks: &HashMap<String, String>,
+    config_sinks: &BTreeMap<String, String>,
 ) -> Result<u32, Box<dyn std::error::Error>> {
     let name = n.to_string();
     let real_name = config_sinks.get(&name).unwrap_or(&name);
