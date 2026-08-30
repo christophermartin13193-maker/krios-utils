@@ -23,7 +23,6 @@ impl Display for ErrorType {
             Self::Parse(err) => write!(f, "Failed to parse the id of a sink : {err}"),
             Self::NamedSinkNotFound => write!(f, "Couldn't find the the targeted sink"),
             Self::NoValidSinkInConfig => write!(f, "There is no valid sink in the config file"),
-            _ => writeln!(f, "PlaceHolder"),
         }
     }
 }
