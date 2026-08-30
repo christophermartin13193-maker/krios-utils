@@ -1,11 +1,7 @@
 use crate::command::{
     arg::Verbosity,
-    config::Config,
     output::ErrorType,
     step::{Context, Step},
-};
-use std::{
-    collections::HashMap,
 };
 
 fn check_cmd() -> Result<(), ErrorType> {

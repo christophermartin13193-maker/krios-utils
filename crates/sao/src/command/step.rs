@@ -1,4 +1,3 @@
-#![allow(unused)]
 use super::{
     arg::{Args, Verbosity},
     config::Config,
@@ -10,7 +9,7 @@ pub enum Step {
     Name(Context, Vec<String>),
     Next(Context, Vec<String>),
     Wpctl(Context, u32),
-    PlaceHolder,
+    Exit,
 }
 
 #[derive(Debug)]

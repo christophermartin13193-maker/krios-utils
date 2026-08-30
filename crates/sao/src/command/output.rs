@@ -1,6 +1,5 @@
 #![allow(unused)]
 use std::cmp::PartialEq;
-use std::error::Error;
 
 pub enum Output {
     Exit,
@@ -44,5 +43,3 @@ impl From<std::num::ParseIntError> for ErrorType {
         Self::Parse(value)
     }
 }
-
-impl Error for ErrorType {}

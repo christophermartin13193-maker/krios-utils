@@ -1,5 +1,3 @@
-use std::process::ExitStatus;
-
 use crate::command::{
     arg::{Args, Verbosity},
     config,

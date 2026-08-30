@@ -1,5 +1,3 @@
-#![allow(unused)]
-
 use serde::Deserialize;
 use std::{collections::BTreeMap, path::PathBuf, str::FromStr};
 
@@ -23,8 +21,7 @@ pub fn get_default_config() -> Config {
     let path2 = PathBuf::from_str(&format!("/home/{username}/.config/sao/config.toml")).unwrap();
 
     match (get_config_from_path(&path1), get_config_from_path(&path2)) {
-        (Ok(config), _) => config,
-        (_, Ok(config)) => config,
+        (Ok(config), _) | (_, Ok(config)) => config,
         _ => Config {
             sinks: BTreeMap::new(),
         },

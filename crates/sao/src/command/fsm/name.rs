@@ -1,6 +1,5 @@
 use crate::command::{
     arg::Verbosity,
-    config::Config,
     output::ErrorType,
     step::{Context, Step},
 };

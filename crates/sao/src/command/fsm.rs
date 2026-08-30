@@ -1,4 +1,3 @@
-#![allow(unused)]
 use crate::command::output::ErrorType;
 
 use super::{
@@ -37,7 +36,7 @@ impl Fsm {
     }
 
     pub fn next_step(&mut self) -> Result<Output, ErrorType> {
-        let current = std::mem::replace(&mut self.step, Step::PlaceHolder);
+        let current = std::mem::replace(&mut self.step, Step::Exit);
 
         self.step = match current {
             Step::Init(args) => init::step(args)?,
@@ -45,7 +44,7 @@ impl Fsm {
             Step::Name(context, sinks ) => name::step(context, sinks)?,
             Step::Next(context, sinks ) => next::step(context, sinks)?,
             Step::Wpctl(context, id) => wpctl::step(context, id)?,
-            Step::PlaceHolder => return Ok(Output::Exit),
+            Step::Exit => return Ok(Output::Exit),
         };
 
         Ok(Output::Continue)

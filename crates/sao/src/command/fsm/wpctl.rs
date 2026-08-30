@@ -13,5 +13,5 @@ pub fn step(context: Context, id: u32) -> Result<Step, ErrorType> {
     std::process::Command::new("wpctl").arg("set-default").arg(format!("{id}")).output()?;
     if context.v == Verbose { println!("Done !") }
 
-    Ok(Step::PlaceHolder)
+    Ok(Step::Exit)
 }
