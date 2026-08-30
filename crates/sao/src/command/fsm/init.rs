@@ -7,7 +7,7 @@ use crate::command::{
     step::{Context, Step},
 };
 
-pub fn step(args: Args) -> Result<Step, Box<dyn std::error::Error>> {
+pub fn step(args: Args) -> Result<Step, ErrorType> {
     let v = match (args.verbose, args.quiet) {
         (true, _) => Verbosity::Verbose,
         (_, true) => Verbosity::Quiet,

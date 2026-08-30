@@ -8,7 +8,7 @@ use std::{
     collections::HashMap,
 };
 
-fn check_cmd() -> Result<(), Box<dyn std::error::Error>> {
+fn check_cmd() -> Result<(), ErrorType> {
     if std::process::Command::new("which")
         .arg("wpctl")
         .output()?
@@ -17,11 +17,11 @@ fn check_cmd() -> Result<(), Box<dyn std::error::Error>> {
     {
         Ok(())
     } else {
-        Err(Box::new(ErrorType::AbsentCommand))
+        Err(ErrorType::AbsentCommand)
     }
 }
 
-pub fn get_sinks() -> Result<Vec<String>, Box<dyn std::error::Error>> {
+pub fn get_sinks() -> Result<Vec<String>, ErrorType> {
     let cmd = std::process::Command::new("wpctl").arg("list").arg("audio").arg("sinks").output()?;
     let mut sinks: Vec<String> = Vec::new();
     for sink in String::from_utf8(cmd.stdout.to_vec())?.lines() {
@@ -29,7 +29,7 @@ pub fn get_sinks() -> Result<Vec<String>, Box<dyn std::error::Error>> {
     }
 
     if sinks.is_empty() {
-        Err(Box::new(ErrorType::NoSinks))
+        Err(ErrorType::NoSinks)
     }
     else {
         Ok(sinks)
@@ -37,7 +37,7 @@ pub fn get_sinks() -> Result<Vec<String>, Box<dyn std::error::Error>> {
 }
 
 
-pub fn step(context: Context) -> Result<Step, Box<dyn std::error::Error>> {
+pub fn step(context: Context) -> Result<Step, ErrorType> {
     if context.v == Verbosity::Verbose {
         println!("---- STEP : CHECK ----")
     }
@@ -48,7 +48,7 @@ pub fn step(context: Context) -> Result<Step, Box<dyn std::error::Error>> {
     check_cmd()?;
 
     if context.args.next && context.config.sinks.is_empty() {
-        return Err(Box::new(ErrorType::NextButNoConfig));
+        return Err(ErrorType::NextButNoConfig);
     }
 
     if context.v == Verbosity::Verbose {

@@ -4,7 +4,7 @@ use crate::command::{
     step::{Context, Step},
 };
 
-pub fn step(context: Context, id: u32) -> Result<Step, Box<dyn std::error::Error>> {
+pub fn step(context: Context, id: u32) -> Result<Step, ErrorType> {
     if context.v == Verbose {
         println!("---- STEP : WPCTL ----")
     }

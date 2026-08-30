@@ -36,7 +36,7 @@ impl Fsm {
         }
     }
 
-    pub fn next(&mut self) -> Result<Output, Box<dyn std::error::Error>> {
+    pub fn next(&mut self) -> Result<Output, ErrorType> {
         let current = std::mem::replace(&mut self.step, Step::PlaceHolder);
 
         self.step = match current {
@@ -56,7 +56,10 @@ impl Fsm {
             eprintln!("{err}")
         }
 
-        1
+        match err {
+            ErrorType::NextButNoConfig | ErrorType::Toml(_) | ErrorType::NamedSinkNotFound | ErrorType::NoValidSinkInConfig => 1,
+            ErrorType::NoSinks | ErrorType::AbsentCommand | ErrorType::Io(_) | ErrorType::Parse(_) | ErrorType::Utf8(_) => 2, 
+        }
     }
 }
 

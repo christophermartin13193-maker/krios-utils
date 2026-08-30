@@ -6,7 +6,7 @@ use crate::command::{
 };
 use std::collections::BTreeMap;
 
-fn get_id(sinks: &[String], config_sinks: &BTreeMap<String, String>) -> Result<u32, Box<dyn std::error::Error>> {
+fn get_id(sinks: &[String], config_sinks: &BTreeMap<String, String>) -> Result<u32, ErrorType> {
     let mut first_sink_id: Option<u32> = None;
     let mut current_found = false;
 
@@ -37,11 +37,11 @@ fn get_id(sinks: &[String], config_sinks: &BTreeMap<String, String>) -> Result<u
         Ok(id)
     }
     else {
-        Err(Box::new(ErrorType::NoValidSinkInConfig))
+        Err(ErrorType::NoValidSinkInConfig)
     }
 }
 
-pub fn step(context: Context, sinks: Vec<String>) -> Result<Step, Box<dyn std::error::Error>> {
+pub fn step(context: Context, sinks: Vec<String>) -> Result<Step, ErrorType> {
     if context.v == Verbosity::Verbose { println!("---- STEP : NEXT ----") }
 
     if context.v == Verbosity::Verbose { println!("Searching for the right id") }

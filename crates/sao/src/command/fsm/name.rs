@@ -10,7 +10,7 @@ fn get_id(
     n: &str,
     sinks: &[String],
     config_sinks: &BTreeMap<String, String>,
-) -> Result<u32, Box<dyn std::error::Error>> {
+) -> Result<u32, ErrorType> {
     let name = n.to_string();
     let real_name = config_sinks.get(&name).unwrap_or(&name);
 
@@ -20,10 +20,10 @@ fn get_id(
         }
     }
 
-    Err(Box::new(ErrorType::NamedSinkNotFound))
+    Err(ErrorType::NamedSinkNotFound)
 }
 
-pub fn step(context: Context, sinks: Vec<String>) -> Result<Step, Box<dyn std::error::Error>> {
+pub fn step(context: Context, sinks: Vec<String>) -> Result<Step, ErrorType> {
     if context.v == Verbosity::Verbose { println!("---- STEP : NAME ----") }
 
     let id = get_id(&context.args.name.clone().unwrap(), &sinks, &context.config.sinks)?;

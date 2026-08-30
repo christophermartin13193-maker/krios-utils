@@ -6,12 +6,14 @@ use std::{collections::BTreeMap, path::PathBuf, str::FromStr};
 use toml;
 use whoami;
 
+use crate::command::output::ErrorType;
+
 #[derive(Deserialize, Debug)]
 pub struct Config {
     pub sinks: BTreeMap<String, String>,
 }
 
-pub fn get_config_from_path(path: &PathBuf) -> Result<Config, Box<dyn std::error::Error>> {
+pub fn get_config_from_path(path: &PathBuf) -> Result<Config, ErrorType> {
     Ok(toml::from_str(&std::fs::read_to_string(path)?)?)
 }
 
