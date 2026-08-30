@@ -1,4 +1,6 @@
 #![allow(unused)]
+use crate::command::output::ErrorType;
+
 use super::{
     arg::{Args, Verbosity},
     output::Output,
@@ -44,10 +46,17 @@ impl Fsm {
             Step::Next(context, sinks ) => next::step(context, sinks)?,
             Step::Wpctl(context, id) => wpctl::step(context, id)?,
             Step::PlaceHolder => return Ok(Output::Exit),
-            _ => Step::PlaceHolder,
         };
 
         Ok(Output::Continue)
+    }
+
+    pub fn handle_error(&self, err: ErrorType) -> i32 {
+        if self.v != Verbosity::Quiet {
+            eprintln!("{err}")
+        }
+
+        1
     }
 }
 

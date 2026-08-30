@@ -6,7 +6,7 @@ use super::{
 
 pub enum Step {
     Init(Args),
-    Check(Context), // Check cmd, check sinks, check --next+config.sinks, check name+sinks,
+    Check(Context),
     Name(Context, Vec<String>),
     Next(Context, Vec<String>),
     Wpctl(Context, u32),

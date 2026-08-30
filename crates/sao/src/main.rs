@@ -7,7 +7,7 @@ fn main() {
             Ok(Output::Continue) => continue,
             Ok(Output::Exit) => break,
 
-            Err(_err) => break,
+            Err(err) => std::process::exit(fsm.handle_error(err)),
         }
     }
 }
