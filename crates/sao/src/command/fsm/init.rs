@@ -22,6 +22,9 @@ pub fn step(args: Args) -> Result<Step, ErrorType> {
     };
 
     let context = Context { v, args, config };
+    if v == Verbosity::Verbose {
+        println!("{context}")
+    }
 
     Ok(Step::Check(context))
 }
