@@ -36,7 +36,7 @@ impl Fsm {
         }
     }
 
-    pub fn next(&mut self) -> Result<Output, ErrorType> {
+    pub fn next_step(&mut self) -> Result<Output, ErrorType> {
         let current = std::mem::replace(&mut self.step, Step::PlaceHolder);
 
         self.step = match current {

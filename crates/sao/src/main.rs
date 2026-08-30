@@ -3,7 +3,7 @@ use sao::{Fsm, Output};
 fn main() {
     let mut fsm = Fsm::default();
     loop {
-        match fsm.next() {
+        match fsm.next_step() {
             Ok(Output::Continue) => continue,
             Ok(Output::Exit) => break,
 

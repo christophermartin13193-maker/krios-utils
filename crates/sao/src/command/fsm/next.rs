@@ -10,7 +10,7 @@ fn get_id(sinks: &[String], config_sinks: &BTreeMap<String, String>) -> Result<u
     let mut first_sink_id: Option<u32> = None;
     let mut current_found = false;
 
-    for (_, value) in config_sinks {
+    for value in config_sinks.values() {
         for line in sinks {
             if line.contains(value) {
                 let mut split = line.split_whitespace();
