@@ -1,6 +1,3 @@
-#![allow(unused)]
-use std::cmp::PartialEq;
-
 pub enum Output {
     Exit,
     Continue,
