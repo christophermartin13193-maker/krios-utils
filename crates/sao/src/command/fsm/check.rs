@@ -17,7 +17,7 @@ fn check_cmd() -> Result<(), ErrorType> {
     }
 }
 
-pub fn get_sinks() -> Result<Vec<String>, ErrorType> {
+fn get_sinks() -> Result<Vec<String>, ErrorType> {
     let cmd = std::process::Command::new("wpctl").arg("list").arg("audio").arg("sinks").output()?;
     let mut sinks: Vec<String> = Vec::new();
     for sink in String::from_utf8(cmd.stdout.to_vec())?.lines() {
