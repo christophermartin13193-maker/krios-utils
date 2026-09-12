@@ -16,7 +16,7 @@ fn get_id(sinks: &[String], config_sinks: &BTreeMap<String, String>) -> Result<u
                 let id: u32 = split.next().unwrap().trim().parse()?;
 
                 if current_found {
-                    return Ok(id)
+                    return Ok(id);
                 }
                 if first_sink_id.is_none() {
                     first_sink_id = Some(id)
@@ -29,23 +29,27 @@ fn get_id(sinks: &[String], config_sinks: &BTreeMap<String, String>) -> Result<u
                 }
             }
         }
-
     }
 
     if let Some(id) = first_sink_id {
         Ok(id)
-    }
-    else {
+    } else {
         Err(ErrorType::NoValidSinkInConfig)
     }
 }
 
 pub fn step(context: Context, sinks: Vec<String>) -> Result<Step, ErrorType> {
-    if context.v == Verbosity::Verbose { println!("---- STEP : NEXT ----") }
+    if context.v == Verbosity::Verbose {
+        println!("---- STEP : NEXT ----")
+    }
 
-    if context.v == Verbosity::Verbose { println!("Searching for the right id") }
+    if context.v == Verbosity::Verbose {
+        println!("Searching for the right id")
+    }
     let id = get_id(&sinks, &context.config.sinks)?;
-    if context.v == Verbosity::Verbose { println!("Id='{id}'") }
+    if context.v == Verbosity::Verbose {
+        println!("Id='{id}'")
+    }
 
     Ok(Step::Wpctl(context, id))
 }

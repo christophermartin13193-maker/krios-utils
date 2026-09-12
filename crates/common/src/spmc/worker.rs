@@ -1,10 +1,13 @@
-use std::{ thread::JoinHandle, sync::{Arc, Mutex, mpsc} };
+use std::{
+    sync::{Arc, Mutex, mpsc},
+    thread::JoinHandle,
+};
 
-use super::{verbosity::Verbosity, Job};
+use super::{Job, verbosity::Verbosity};
 
 pub struct Worker {
     id: usize,
-    thread : JoinHandle<()>,
+    thread: JoinHandle<()>,
 }
 
 impl Worker {
@@ -13,7 +16,7 @@ impl Worker {
             println!("Worker {id} created")
         }
 
-        let thread = std::thread::spawn(move || { 
+        let thread = std::thread::spawn(move || {
             loop {
                 let job = receiver.lock().unwrap().recv().unwrap();
 
@@ -23,8 +26,8 @@ impl Worker {
 
                 job();
             }
-         });
+        });
 
-         Worker { id, thread }
+        Worker { id, thread }
     }
 }

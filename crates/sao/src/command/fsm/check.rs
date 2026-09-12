@@ -18,7 +18,11 @@ fn check_cmd() -> Result<(), ErrorType> {
 }
 
 fn get_sinks() -> Result<Vec<String>, ErrorType> {
-    let cmd = std::process::Command::new("wpctl").arg("list").arg("audio").arg("sinks").output()?;
+    let cmd = std::process::Command::new("wpctl")
+        .arg("list")
+        .arg("audio")
+        .arg("sinks")
+        .output()?;
     let mut sinks: Vec<String> = Vec::new();
     for sink in String::from_utf8(cmd.stdout.to_vec())?.lines() {
         sinks.push(sink.to_string());
@@ -26,12 +30,10 @@ fn get_sinks() -> Result<Vec<String>, ErrorType> {
 
     if sinks.is_empty() {
         Err(ErrorType::NoSinks)
-    }
-    else {
+    } else {
         Ok(sinks)
     }
 }
-
 
 pub fn step(context: Context) -> Result<Step, ErrorType> {
     if context.v == Verbosity::Verbose {
@@ -59,8 +61,7 @@ pub fn step(context: Context) -> Result<Step, ErrorType> {
 
     if context.args.next {
         Ok(Step::Next(context, sinks))
-    }
-    else {
+    } else {
         Ok(Step::Name(context, sinks))
     }
 }

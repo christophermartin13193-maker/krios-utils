@@ -1,12 +1,15 @@
 #![allow(dead_code)]
 
-use worker::Worker;
+use std::sync::{
+    Arc, Mutex,
+    mpsc::{self, Sender},
+};
 pub use verbosity::Verbosity;
-use std::sync::{ Arc, Mutex, mpsc::{self, Sender} };
+use worker::Worker;
 
-mod worker;
-pub mod verbosity;
 pub mod error;
+pub mod verbosity;
+mod worker;
 
 type Job = Box<dyn FnOnce() + Send + 'static>;
 
@@ -19,7 +22,7 @@ pub struct ThreadPool {
 impl ThreadPool {
     pub fn new(size: usize, v: Verbosity) -> Result<Self, error::ThreadLoopError> {
         if size == 0 {
-            return Err(error::ThreadLoopError::SizeSetTo0)
+            return Err(error::ThreadLoopError::SizeSetTo0);
         }
 
         let mut workers = Vec::with_capacity(size);
@@ -30,7 +33,11 @@ impl ThreadPool {
             workers.push(Worker::new(v, id, Arc::clone(&receiver)));
         }
 
-        Ok(Self { workers, sender, size })
+        Ok(Self {
+            workers,
+            sender,
+            size,
+        })
     }
 
     pub fn execute<F>(&self, f: F)

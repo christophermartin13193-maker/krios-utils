@@ -15,7 +15,7 @@ fn get_id(
 
     for line in sinks {
         if line.contains(real_name) {
-            return Ok(line.split_whitespace().next().unwrap().trim().parse()?)
+            return Ok(line.split_whitespace().next().unwrap().trim().parse()?);
         }
     }
 
@@ -23,10 +23,18 @@ fn get_id(
 }
 
 pub fn step(context: Context, sinks: Vec<String>) -> Result<Step, ErrorType> {
-    if context.v == Verbosity::Verbose { println!("---- STEP : NAME ----") }
+    if context.v == Verbosity::Verbose {
+        println!("---- STEP : NAME ----")
+    }
 
-    let id = get_id(&context.args.name.clone().unwrap(), &sinks, &context.config.sinks)?;
-    if context.v == Verbosity::Verbose { println!("Id='{id}' retrieved successfully") }
+    let id = get_id(
+        &context.args.name.clone().unwrap(),
+        &sinks,
+        &context.config.sinks,
+    )?;
+    if context.v == Verbosity::Verbose {
+        println!("Id='{id}' retrieved successfully")
+    }
 
     Ok(Step::Wpctl(context, id))
 }

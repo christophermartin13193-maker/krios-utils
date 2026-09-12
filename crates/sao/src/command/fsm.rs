@@ -8,8 +8,8 @@ use super::{
 
 use clap::Parser;
 
-mod init;
 mod check;
+mod init;
 mod name;
 mod next;
 mod wpctl;
@@ -41,8 +41,8 @@ impl Fsm {
         self.step = match current {
             Step::Init(args) => init::step(args)?,
             Step::Check(context) => check::step(context)?,
-            Step::Name(context, sinks ) => name::step(context, sinks)?,
-            Step::Next(context, sinks ) => next::step(context, sinks)?,
+            Step::Name(context, sinks) => name::step(context, sinks)?,
+            Step::Next(context, sinks) => next::step(context, sinks)?,
             Step::Wpctl(context, id) => wpctl::step(context, id)?,
             Step::Exit => return Ok(Output::Exit),
         };
@@ -56,8 +56,15 @@ impl Fsm {
         }
 
         match err {
-            ErrorType::NextButNoConfig | ErrorType::Toml(_) | ErrorType::NamedSinkNotFound | ErrorType::NoValidSinkInConfig => 1,
-            ErrorType::NoSinks | ErrorType::AbsentCommand | ErrorType::Io(_) | ErrorType::Parse(_) | ErrorType::Utf8(_) => 2, 
+            ErrorType::NextButNoConfig
+            | ErrorType::Toml(_)
+            | ErrorType::NamedSinkNotFound
+            | ErrorType::NoValidSinkInConfig => 1,
+            ErrorType::NoSinks
+            | ErrorType::AbsentCommand
+            | ErrorType::Io(_)
+            | ErrorType::Parse(_)
+            | ErrorType::Utf8(_) => 2,
         }
     }
 }

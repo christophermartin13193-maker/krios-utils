@@ -1,0 +1,8 @@
+[package]
+name = "ans"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+pipewire-native.workspace = true
+notify-rust.workspace = true
