@@ -1,8 +1,11 @@
 [package]
-name = "ans"
+name = "sonard"
 version = "0.1.0"
 edition = "2024"
 
 [dependencies]
 pipewire-native.workspace = true
 notify-rust.workspace = true
+serde.workspace = true
+toml.workspace = true
+whoami.workspace = true
