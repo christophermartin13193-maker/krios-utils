@@ -9,7 +9,7 @@ use crate::{
     config::Config,
     exit::SonardError,
     fsm::Step,
-    pipe_wrapper::{Global, GlobalRemove, Wrapper},
+    pipe_wrapper::{Global, GlobalRemove},
 };
 
 use std::{

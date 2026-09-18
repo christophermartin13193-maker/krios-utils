@@ -2,7 +2,6 @@
 use crate::{
     config::Config,
     exit::{ERROR_EXIT_CODE, ExitCode, Output, SonardError},
-    pipe_wrapper::Wrapper,
 };
 
 mod init;
