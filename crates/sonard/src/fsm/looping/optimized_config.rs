@@ -46,14 +46,22 @@ fn get_optimized_sinks(sinks: Option<SinksConfig>) -> (String, String, bool, boo
     }
 }
 
-fn get_optimized_mic(mic: Option<MicConfig>) -> (String, String, bool, bool) {
+fn get_optimized_mic(
+    mic: Option<MicConfig>,
+) -> (String, String, String, String, bool, bool, bool, bool) {
     const DEFAULT_MIC_PLUGGED: &str = "audio-input-microphone";
     const DEFAULT_MIC_UNPLUGGED: &str = "dialog-warning";
+    const DEFAULT_MIC_MUTED: &str = "audio-input-microphone";
+    const DEFAULT_MIC_OPENED: &str = "audio-input-microphone";
 
     match mic {
         None => (
             DEFAULT_MIC_PLUGGED.to_string(),
             DEFAULT_MIC_UNPLUGGED.to_string(),
+            DEFAULT_MIC_MUTED.to_string(),
+            DEFAULT_MIC_OPENED.to_string(),
+            false,
+            false,
             false,
             false,
         ),
@@ -82,11 +90,39 @@ fn get_optimized_mic(mic: Option<MicConfig>) -> (String, String, bool, bool) {
                 }
             };
 
+            let (mic_muted_icon, mic_muted_flag) = match mic.muted {
+                None => (DEFAULT_MIC_MUTED.to_string(), false),
+                Some(muted) => {
+                    let icon = if muted.is_empty() {
+                        DEFAULT_MIC_MUTED.to_string()
+                    } else {
+                        muted
+                    };
+                    (icon, true)
+                }
+            };
+
+            let (mic_opened_icon, mic_opened_flag) = match mic.open {
+                None => (DEFAULT_MIC_OPENED.to_string(), false),
+                Some(opened) => {
+                    let icon = if opened.is_empty() {
+                        DEFAULT_MIC_OPENED.to_string()
+                    } else {
+                        opened
+                    };
+                    (icon, true)
+                }
+            };
+
             (
                 mic_plugged_icon,
                 mic_unplugged_icon,
+                mic_muted_icon,
+                mic_opened_icon,
                 mic_plugged_flag,
                 mic_unplugged_flag,
+                mic_muted_flag,
+                mic_opened_flag,
             )
         }
     }
@@ -98,30 +134,46 @@ pub struct OptimizedConfig {
     pub sinks_unplugged_flag: bool,
     pub mic_plugged_flag: bool,
     pub mic_unplugged_flag: bool,
+    pub mic_opened_flag: bool,
+    pub mic_muted_flag: bool,
 
     // icons
     pub sinks_plugged_icon: String,
     pub sinks_unplugged_icon: String,
     pub mic_plugged_icon: String,
     pub mic_unplugged_icon: String,
+    pub mic_opened_icon: String,
+    pub mic_muted_icon: String,
 }
 
 impl OptimizedConfig {
     pub fn new(config: Config) -> Self {
         let (sinks_plugged_icon, sinks_unplugged_icon, sinks_plugged_flag, sinks_unplugged_flag) =
             get_optimized_sinks(config.sinks);
-        let (mic_plugged_icon, mic_unplugged_icon, mic_plugged_flag, mic_unplugged_flag) =
-            get_optimized_mic(config.mic);
+        let (
+            mic_plugged_icon,
+            mic_unplugged_icon,
+            mic_muted_icon,
+            mic_opened_icon,
+            mic_plugged_flag,
+            mic_unplugged_flag,
+            mic_muted_flag,
+            mic_opened_flag,
+        ) = get_optimized_mic(config.mic);
 
         OptimizedConfig {
             sinks_plugged_flag,
             sinks_unplugged_flag,
+            mic_muted_icon,
+            mic_opened_icon,
             mic_plugged_flag,
             mic_unplugged_flag,
             sinks_plugged_icon,
             sinks_unplugged_icon,
             mic_plugged_icon,
             mic_unplugged_icon,
+            mic_muted_flag,
+            mic_opened_flag,
         }
     }
 }

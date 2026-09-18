@@ -30,6 +30,7 @@ fn get_func(p: PipeIndex) -> GlobalRemove {
                         eprintln!("Notification error: {err}")
                     }
                 }
+                Duty::Hidden => (),
             }
         }
     }))
@@ -38,8 +39,7 @@ fn get_func(p: PipeIndex) -> GlobalRemove {
 pub fn get_global_remove(config: &OptimizedConfig, p: PipeIndex) -> GlobalRemove {
     if config.sinks_unplugged_flag || config.mic_unplugged_flag {
         get_func(p)
-    }
-    else {
+    } else {
         None
     }
 }

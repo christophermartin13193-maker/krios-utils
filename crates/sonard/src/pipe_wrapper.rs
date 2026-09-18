@@ -6,7 +6,10 @@ use pipewire_native::{
     main_loop::MainLoop,
     permission::PermissionBits,
     properties::Properties,
-    proxy::registry::{Registry, RegistryEvents},
+    proxy::{
+        HasProxy,
+        registry::{Registry, RegistryEvents},
+    },
 };
 
 pub type Global =
@@ -43,6 +46,15 @@ impl Wrapper {
             global,
             global_remove,
         })
+    }
+
+    pub fn bind(
+        &mut self,
+        id: u32,
+        type_: &str,
+        version: u32,
+    ) -> Result<Box<dyn HasProxy>, std::io::Error> {
+        self.registry.bind(id, type_, version)
     }
 
     pub fn run(&self) {

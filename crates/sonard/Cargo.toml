@@ -5,6 +5,7 @@ edition = "2024"
 
 [dependencies]
 pipewire-native.workspace = true
+pipewire-native-spa.workspace = true
 notify-rust.workspace = true
 serde.workspace = true
 toml.workspace = true

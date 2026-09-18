@@ -10,7 +10,7 @@ mod looping;
 
 enum Step {
     Init,
-    Looping(Wrapper, Config),
+    Looping(Config),
     Exit,
 }
 
@@ -28,7 +28,7 @@ impl Fsm {
 
         self.step = match current {
             Step::Init => init::step()?,
-            Step::Looping(wrapper, config) => looping::step(wrapper, config)?,
+            Step::Looping(config) => looping::step(config)?,
             Step::Exit => return Ok(Output::Exit),
         };
 
