@@ -1,13 +1,13 @@
-use sonard::{Fsm, NORMAL_EXIT_CODE, Output};
+use sonard::{Automate, EXIT_CODE_STANDARD, Output};
 
 fn main() {
-    let mut fsm = Fsm::new();
+    let mut automate = Automate::default();
     loop {
-        match fsm.next_step() {
+        match automate.run() {
             Ok(Output::Continue) => continue,
-            Ok(Output::Exit) => std::process::exit(NORMAL_EXIT_CODE),
+            Ok(Output::Exit) => std::process::exit(EXIT_CODE_STANDARD),
 
-            Err(err) => std::process::exit(fsm.handle_error(err)),
+            Err(error) => std::process::exit(Automate::handle_error(error)),
         }
     }
 }

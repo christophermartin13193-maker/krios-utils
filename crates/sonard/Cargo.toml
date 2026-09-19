@@ -9,4 +9,4 @@ pipewire-native-spa.workspace = true
 notify-rust.workspace = true
 serde.workspace = true
 toml.workspace = true
-whoami.workspace = true
+dirs.workspace = true

@@ -1,8 +1,6 @@
-mod config;
-mod exit;
-mod fsm;
-mod pipe_wrapper;
+mod internal;
 
 // API
-pub use exit::{NORMAL_EXIT_CODE, Output};
-pub use fsm::Fsm;
+pub use internal::Automate;
+pub use internal::EXIT_CODE_STANDARD;
+pub use internal::Output;
