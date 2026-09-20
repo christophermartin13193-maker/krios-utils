@@ -9,11 +9,11 @@ pub struct OptimizedConfiguration {
 pub struct OptimizedSinks {
     pub plugged_flag: bool,
     pub unplugged_flag: bool,
-    pub current_flag: bool,
+    pub _current_flag: bool,
 
     pub plugged_icon: String,
     pub unplugged_icon: String,
-    pub current_icon: String,
+    pub _current_icon: String,
 }
 pub struct OptimizedMic {
     pub plugged_flag: bool,
@@ -44,10 +44,10 @@ fn get_optimized_sinks(sinks: Option<SinksConfiguration>) -> OptimizedSinks {
         None => OptimizedSinks {
             plugged_flag: false,
             unplugged_flag: false,
-            current_flag: false,
+            _current_flag: false,
             plugged_icon: DEFAULT_SINK_PLUGGED.to_string(),
             unplugged_icon: DEFAULT_SINK_UNPLUGGED.to_string(),
-            current_icon: DEFAULT_SINK_CURRENT.to_string(),
+            _current_icon: DEFAULT_SINK_CURRENT.to_string(),
         },
         Some(sinks) => {
             let plugged_flag = sinks.plugged.is_some();
@@ -71,10 +71,10 @@ fn get_optimized_sinks(sinks: Option<SinksConfiguration>) -> OptimizedSinks {
             OptimizedSinks {
                 plugged_flag,
                 unplugged_flag,
-                current_flag,
+                _current_flag: current_flag,
                 plugged_icon,
                 unplugged_icon,
-                current_icon,
+                _current_icon: current_icon,
             }
         }
     }
