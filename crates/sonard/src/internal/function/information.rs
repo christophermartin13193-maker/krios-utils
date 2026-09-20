@@ -8,5 +8,5 @@ pub struct GlobalRemoveInformation {
     pub description: String,
     pub icon: String,
     pub duty: Duty,
-    pub hook: Option<u32>,
+    pub _hook: Option<u32>,
 }

@@ -55,7 +55,7 @@ pub fn get_global(
                                 description: description.clone(),
                                 icon: optimized.optimized_sinks.unplugged_icon.clone(),
                                 duty: Duty::UnpluggedSink,
-                                hook: None,
+                                _hook: None,
                             },
                         );
                     }
@@ -111,7 +111,7 @@ pub fn get_global(
                                 description,
                                 icon: optimized.optimized_mic.unplugged_icon.clone(),
                                 duty,
-                                hook,
+                                _hook: hook,
                             },
                         );
                     }

@@ -8,9 +8,9 @@ type GlobalRemove = Option<Box<dyn FnMut(u32) + Send + 'static>>;
 
 pub fn get_remove(index: Index, optimized: &OptimizedConfiguration) -> GlobalRemove {
     if optimized.optimized_sinks.unplugged_flag
-        || optimized.optimized_mic.unplugged_flag
-        || optimized.optimized_mic.unmuted_flag
-        || optimized.optimized_mic.muted_flag
+        && !optimized.optimized_mic.unplugged_flag
+        && !optimized.optimized_mic.unmuted_flag
+        && !optimized.optimized_mic.muted_flag
     {
         return None;
     }

@@ -24,23 +24,19 @@ pub struct MicConfiguration {
 }
 
 fn get_path_1() -> Option<PathBuf> {
-    if let Some(mut path) = dirs::config_local_dir() {
-        path.push("sonard");
-        path.push("config.toml");
-        Some(path)
-    } else {
-        None
-    }
+    dirs::config_local_dir().map(|mut p| {
+        p.push("sonard");
+        p.push("config.toml");
+        p
+    })
 }
 
 fn get_path_2() -> Option<PathBuf> {
-    if let Some(mut path) = dirs::config_dir() {
-        path.push("sonard");
-        path.push("config.toml");
-        Some(path)
-    } else {
-        None
-    }
+    dirs::config_dir().map(|mut p| {
+        p.push("sonard");
+        p.push("config.toml");
+        p
+    })
 }
 
 fn parse(path: PathBuf) -> Result<Configuration, SonardError> {
@@ -48,11 +44,12 @@ fn parse(path: PathBuf) -> Result<Configuration, SonardError> {
 }
 
 pub fn get_configuration() -> Result<Configuration, SonardError> {
-    let path_1 = get_path_1();
-    let path_2 = get_path_2();
+    let paths = [get_path_1(), get_path_2()];
 
-    match (path_1, path_2) {
-        (Some(path), _) | (_, Some(path)) => parse(path),
-        _ => Err(SonardError::NoConfigFile),
+    for path in paths {
+        if let Some(path) = path && path.is_file() {
+            return parse(path);
+        }
     }
+    Err(SonardError::NoConfigFile)
 }
