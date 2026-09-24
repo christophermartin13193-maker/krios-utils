@@ -1,6 +1,6 @@
 //! # Sonard
 //! 
-//! `sonard` is a lightweight Linux daemon built on top of `pipewire-native` and `pipewire-native-spa`.
+//! `sonard` is a lightweight Linux daemon built on top of [`pipewire-native`](https://docs.rs/pipewire-native) and [`pipewire-native-spa`](https://docs.rs/pipewire-native-spa) .
 //! It monitors the state of sound cards and microphones (activation, mute, plug, unplug) in real time
 //! and emits notification instructions.
 //! 
