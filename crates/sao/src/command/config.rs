@@ -17,7 +17,7 @@ pub fn get_config_from_path(path: &PathBuf) -> Result<Config, ErrorType> {
 
 pub fn get_default_config() -> Config {
     let username = whoami::username().unwrap_or("".to_string());
-    let path1 = PathBuf::from_str(&format!("/home/{username}/.local/sao/config.toml")).unwrap();
+    let path1 = PathBuf::from_str(&format!("/home/{username}/.local/share/sao/config.toml")).unwrap();
     let path2 = PathBuf::from_str(&format!("/home/{username}/.config/sao/config.toml")).unwrap();
 
     match (get_config_from_path(&path1), get_config_from_path(&path2)) {

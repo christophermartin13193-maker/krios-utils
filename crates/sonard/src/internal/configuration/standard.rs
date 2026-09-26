@@ -24,8 +24,7 @@ pub struct MicConfiguration {
 }
 
 fn get_path_1() -> Option<PathBuf> {
-    dirs::home_dir().map(|mut p| {
-        p.push(".local");
+    dirs::data_local_dir().map(|mut p| {
         p.push("sonard");
         p.push("config.toml");
         p

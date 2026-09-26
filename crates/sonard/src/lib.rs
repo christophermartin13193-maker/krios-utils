@@ -13,7 +13,7 @@
 //! 2. Connection to the PipeWire event loop via a C-API wrapper.
 //! 3. An execution loop running without unnecessary heap allocations.
 //! 
-//! ## Integration Example
+//! ## Integration
 //! 
 //! ```no_run
 //! use sonard::{Automate, Output, EXIT_CODE_STANDARD};
