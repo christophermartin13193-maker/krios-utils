@@ -1,0 +1,13 @@
+[Unit]
+Description=Sonard - PipeWire Audio State Tracker
+After=pipewire.service
+Requires=pipewire.service
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/sonard
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=default.target
