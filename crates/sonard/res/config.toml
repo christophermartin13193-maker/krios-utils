@@ -1,0 +1,10 @@
+[sinks]
+current="audio-volume-high"
+plugged="audio-headset"
+unplugged="audio-headset-symbolic"
+
+[mic]
+unmuted="microphone-sensitivity-high"
+muted="microphone-sensitivity-muted"
+plugged="audio-input-microphone"
+unplugged="microphone-disabled"
